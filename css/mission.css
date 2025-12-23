@@ -1,4 +1,4 @@
-/* Mission Page - Matches About Page Style */
+/* Mission Page - Card Overlap Design */
 
 html:has(.mission-body),
 html:has(.mission-body) body,
@@ -9,15 +9,13 @@ html:has(.mission-body) body,
     height: auto !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
-    overflow: visible !important;
-    overflow-y: scroll !important;
 }
 
 .mission-body {
     font-family: 'Poppins', 'Segoe UI', sans-serif;
 }
 
-/* Background - same as homepage */
+/* Background */
 .mission-background {
     position: fixed;
     top: 0;
@@ -31,7 +29,7 @@ html:has(.mission-body) body,
     background-repeat: no-repeat;
 }
 
-/* Header with Logo - Centered */
+/* Header with Logo */
 .mission-header {
     position: fixed;
     top: 15px;
@@ -50,12 +48,12 @@ html:has(.mission-body) body,
 }
 
 .mission-header .header-logo {
-    height: 180px;
+    height: 140px;
     width: auto;
     filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.4));
 }
 
-/* Main Layout - Side by Side */
+/* Main Layout - Desktop Side by Side */
 .mission-main {
     display: flex;
     align-items: stretch;
@@ -81,7 +79,7 @@ html:has(.mission-body) body,
     border-radius: 12px;
 }
 
-/* Mission Container - matches image height (kids.png ratio ~0.50) */
+/* Mission Container - Desktop */
 .mission-container {
     width: calc(70vh * 0.50);
     height: 70vh;
@@ -96,9 +94,10 @@ html:has(.mission-body) body,
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden; /* Keep text inside */
 }
 
-/* Mission Title - Fun Font */
+/* Mission Title */
 .mission-title {
     font-family: 'Pacifico', cursive;
     font-size: clamp(1.4rem, 4vw, 2rem);
@@ -106,13 +105,12 @@ html:has(.mission-body) body,
     margin: 0 0 15px 0;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     line-height: 1.2;
-    word-wrap: break-word;
 }
 
 /* Mission Text */
 .mission-text {
-    font-size: 0.85rem;
-    line-height: 1.7;
+    font-size: 0.9rem;
+    line-height: 1.6;
     color: #fff;
     margin-bottom: 15px;
 }
@@ -125,16 +123,18 @@ html:has(.mission-body) body,
 /* Back Home Button */
 .back-home-btn {
     display: inline-block;
-    margin-top: 10px;
-    padding: 8px 20px;
+    margin-top: auto;
+    padding: 10px 24px;
     background: linear-gradient(135deg, var(--colombia-yellow) 0%, #E5B800 100%);
     color: var(--dark);
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     border-radius: 30px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(252, 209, 22, 0.3);
+    text-align: center;
+    align-self: center;
 }
 
 .back-home-btn:hover {
@@ -155,52 +155,73 @@ html:has(.mission-body) body,
 }
 
 /* ===================== */
-/* Mobile - Stacked Layout */
+/* Mobile - Card Overlap Layout */
 /* ===================== */
 @media (max-width: 900px) {
     .mission-main {
         flex-direction: column;
         align-items: center;
-        padding: 180px 20px 120px;
-        gap: 20px;
+        padding: 160px 20px 80px;
+        gap: 0; /* Remove gap for overlap */
     }
 
     .image-container {
         order: 1;
-        padding-left: 0;
-        width: 280px;
-    }
-
-    .mission-container {
-        order: 2;
-        width: 280px;
-        height: auto;
+        z-index: 2;
+        margin-bottom: -60px; /* Overlap into mission container */
     }
 
     .mission-image {
         height: auto;
         width: 280px;
-        max-height: none;
+        max-width: 80vw;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     }
 
-    .mission-header .header-logo {
-        height: 150px;
+    .mission-container {
+        order: 2;
+        z-index: 1;
+        width: 320px;
+        max-width: 90vw;
+        height: auto;
+        min-height: auto;
+        padding: 80px 25px 25px 25px; /* Extra top padding for overlap */
+        border-radius: 16px;
+    }
+
+    .mission-title {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+
+    .mission-text {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .back-home-btn {
+        margin-top: 15px;
     }
 }
 
 @media (max-width: 500px) {
     .mission-main {
-        padding: 150px 15px 100px;
+        padding: 140px 15px 60px;
     }
 
     .image-container {
+        margin-bottom: -50px;
+    }
+
+    .mission-image {
         width: 240px;
     }
 
     .mission-container {
-        padding: 25px;
-        width: 240px;
-        height: auto;
+        width: 280px;
+        padding: 70px 20px 20px 20px;
     }
 
     .mission-title {
@@ -211,15 +232,39 @@ html:has(.mission-body) body,
         font-size: 0.8rem;
     }
 
-    .mission-image {
-        width: 240px;
-    }
-
-    .mission-header .header-logo {
-        height: 120px;
+    .back-home-btn {
+        font-size: 0.75rem;
+        padding: 8px 20px;
     }
 
     .mission-footer {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .mission-main {
+        padding: 130px 10px 50px;
+    }
+
+    .image-container {
+        margin-bottom: -40px;
+    }
+
+    .mission-image {
+        width: 220px;
+    }
+
+    .mission-container {
+        width: 260px;
+        padding: 60px 18px 18px 18px;
+    }
+
+    .mission-title {
+        font-size: 1.2rem;
+    }
+
+    .mission-text {
+        font-size: 0.75rem;
     }
 }

@@ -22,7 +22,72 @@
         <!-- Desktop: Sun Navigation -->
         <div class="sun-nav-desktop">
             <div class="sun-wrapper">
-                <img src="assets/images/sun_vector.svg" alt="Navigation Sun" class="sun-image">
+                <!-- Lava Lamp Interactive Sun -->
+                <svg class="sun-image lava-sun" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!-- Core sun gradient -->
+                        <radialGradient id="sunCoreGradient" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#FFF7B0"/>
+                            <stop offset="40%" stop-color="#FFE14D"/>
+                            <stop offset="70%" stop-color="#FFC700"/>
+                            <stop offset="100%" stop-color="#FFA500"/>
+                        </radialGradient>
+                        <!-- Glow filter -->
+                        <filter id="sunGlowFilter" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="8" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <!-- Ray gradients -->
+                        <linearGradient id="rayGradYellow" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#FFD700" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="#FFA500" stop-opacity="0.6"/>
+                        </linearGradient>
+                        <linearGradient id="rayGradBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#5588CC" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="#003893" stop-opacity="0.6"/>
+                        </linearGradient>
+                        <linearGradient id="rayGradRed" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#DD4444" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="#CE1126" stop-opacity="0.6"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Outer glow layer -->
+                    <circle class="sun-glow-outer" cx="200" cy="200" r="180" fill="none"
+                            stroke="rgba(255, 200, 0, 0.1)" stroke-width="40"/>
+
+                    <!-- Fluid rays container -->
+                    <g class="lava-rays" filter="url(#sunGlowFilter)">
+                        <!-- 12 fluid rays that will be animated -->
+                        <path class="lava-ray ray-0" d="M200,120 Q200,80 200,50 Q200,80 200,120" fill="url(#rayGradYellow)"/>
+                        <path class="lava-ray ray-1" d="M255,135 Q285,100 310,75 Q280,105 250,140" fill="url(#rayGradYellow)"/>
+                        <path class="lava-ray ray-2" d="M280,200 Q320,200 350,200 Q320,200 280,200" fill="url(#rayGradBlue)"/>
+                        <path class="lava-ray ray-3" d="M255,265 Q285,300 310,325 Q280,295 250,260" fill="url(#rayGradBlue)"/>
+                        <path class="lava-ray ray-4" d="M200,280 Q200,320 200,350 Q200,320 200,280" fill="url(#rayGradRed)"/>
+                        <path class="lava-ray ray-5" d="M145,265 Q115,300 90,325 Q120,295 150,260" fill="url(#rayGradRed)"/>
+                        <path class="lava-ray ray-6" d="M120,200 Q80,200 50,200 Q80,200 120,200" fill="url(#rayGradYellow)"/>
+                        <path class="lava-ray ray-7" d="M145,135 Q115,100 90,75 Q120,105 150,140" fill="url(#rayGradYellow)"/>
+                        <!-- Secondary wave rays -->
+                        <path class="lava-ray ray-8" d="M225,125 Q240,90 260,60 Q235,95 220,130" fill="url(#rayGradBlue)"/>
+                        <path class="lava-ray ray-9" d="M275,175 Q310,160 340,145 Q305,165 270,180" fill="url(#rayGradRed)"/>
+                        <path class="lava-ray ray-10" d="M275,225 Q310,240 340,255 Q305,235 270,220" fill="url(#rayGradYellow)"/>
+                        <path class="lava-ray ray-11" d="M225,275 Q240,310 260,340 Q235,305 220,270" fill="url(#rayGradBlue)"/>
+                    </g>
+
+                    <!-- Inner glow -->
+                    <circle class="sun-glow-inner" cx="200" cy="200" r="95"
+                            fill="rgba(255, 240, 150, 0.3)"/>
+
+                    <!-- Sun core -->
+                    <circle class="sun-core" cx="200" cy="200" r="80" fill="url(#sunCoreGradient)"/>
+
+                    <!-- Highlight reflection -->
+                    <ellipse class="sun-highlight" cx="175" cy="175" rx="25" ry="20"
+                             fill="rgba(255, 255, 255, 0.3)"/>
+                </svg>
 
                 <!-- Clickable mini suns at 12, 3, 6, 9 o'clock positions -->
                 <a href="pages/mission.html" class="ray-hotspot ray-top" data-label="OUR MISSION">
@@ -115,7 +180,55 @@
                 <a href="pages/about.html" class="callout callout-right">About Us</a>
             </div>
             <div class="mobile-sun-wrapper">
-                <img src="assets/images/sun_vector.svg" alt="Navigation Sun" class="mobile-sun-image">
+                <!-- Mobile Lava Lamp Sun -->
+                <svg class="mobile-sun-image lava-sun-mobile" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="sunCoreGradientMobile" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#FFF7B0"/>
+                            <stop offset="40%" stop-color="#FFE14D"/>
+                            <stop offset="70%" stop-color="#FFC700"/>
+                            <stop offset="100%" stop-color="#FFA500"/>
+                        </radialGradient>
+                        <filter id="sunGlowFilterMobile" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="6" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <linearGradient id="rayGradYellowMobile" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#FFD700" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="#FFA500" stop-opacity="0.6"/>
+                        </linearGradient>
+                        <linearGradient id="rayGradBlueMobile" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#5588CC" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="#003893" stop-opacity="0.6"/>
+                        </linearGradient>
+                        <linearGradient id="rayGradRedMobile" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#DD4444" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="#CE1126" stop-opacity="0.6"/>
+                        </linearGradient>
+                    </defs>
+                    <circle class="sun-glow-outer" cx="200" cy="200" r="180" fill="none"
+                            stroke="rgba(255, 200, 0, 0.1)" stroke-width="40"/>
+                    <g class="lava-rays-mobile" filter="url(#sunGlowFilterMobile)">
+                        <path class="lava-ray-mobile ray-m-0" d="M200,120 Q200,80 200,50 Q200,80 200,120" fill="url(#rayGradYellowMobile)"/>
+                        <path class="lava-ray-mobile ray-m-1" d="M255,135 Q285,100 310,75 Q280,105 250,140" fill="url(#rayGradYellowMobile)"/>
+                        <path class="lava-ray-mobile ray-m-2" d="M280,200 Q320,200 350,200 Q320,200 280,200" fill="url(#rayGradBlueMobile)"/>
+                        <path class="lava-ray-mobile ray-m-3" d="M255,265 Q285,300 310,325 Q280,295 250,260" fill="url(#rayGradBlueMobile)"/>
+                        <path class="lava-ray-mobile ray-m-4" d="M200,280 Q200,320 200,350 Q200,320 200,280" fill="url(#rayGradRedMobile)"/>
+                        <path class="lava-ray-mobile ray-m-5" d="M145,265 Q115,300 90,325 Q120,295 150,260" fill="url(#rayGradRedMobile)"/>
+                        <path class="lava-ray-mobile ray-m-6" d="M120,200 Q80,200 50,200 Q80,200 120,200" fill="url(#rayGradYellowMobile)"/>
+                        <path class="lava-ray-mobile ray-m-7" d="M145,135 Q115,100 90,75 Q120,105 150,140" fill="url(#rayGradYellowMobile)"/>
+                        <path class="lava-ray-mobile ray-m-8" d="M225,125 Q240,90 260,60 Q235,95 220,130" fill="url(#rayGradBlueMobile)"/>
+                        <path class="lava-ray-mobile ray-m-9" d="M275,175 Q310,160 340,145 Q305,165 270,180" fill="url(#rayGradRedMobile)"/>
+                        <path class="lava-ray-mobile ray-m-10" d="M275,225 Q310,240 340,255 Q305,235 270,220" fill="url(#rayGradYellowMobile)"/>
+                        <path class="lava-ray-mobile ray-m-11" d="M225,275 Q240,310 260,340 Q235,305 220,270" fill="url(#rayGradBlueMobile)"/>
+                    </g>
+                    <circle class="sun-glow-inner-mobile" cx="200" cy="200" r="95" fill="rgba(255, 240, 150, 0.3)"/>
+                    <circle class="sun-core-mobile" cx="200" cy="200" r="80" fill="url(#sunCoreGradientMobile)"/>
+                    <ellipse class="sun-highlight-mobile" cx="175" cy="175" rx="25" ry="20" fill="rgba(255, 255, 255, 0.3)"/>
+                </svg>
             </div>
             <div class="mobile-callouts">
                 <a href="pages/contact.html" class="callout callout-left">Contact</a>

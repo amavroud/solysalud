@@ -7,6 +7,11 @@
     --colombia-red: #CE1126;
     --white: #FFFFFF;
     --dark: #1a1a2e;
+
+    /* Glow animation variables */
+    --glow-color-inner: rgba(255, 230, 100, 0.9);
+    --glow-color-mid: rgba(255, 180, 50, 0.6);
+    --glow-color-outer: rgba(255, 140, 0, 0.3);
 }
 
 * {
@@ -26,6 +31,7 @@ html, body {
     position: relative;
     width: 100vw;
     height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
     overflow: hidden;
     background-color: #2a1810;
 }
@@ -62,11 +68,96 @@ html, body {
 }
 
 /* ===================== */
+/* Enhanced Sun Glow Animation */
+/* ===================== */
+@keyframes sunGlow {
+    0%, 100% {
+        filter:
+            drop-shadow(0 0 15px var(--glow-color-inner))
+            drop-shadow(0 0 30px var(--glow-color-mid))
+            drop-shadow(0 0 50px var(--glow-color-outer));
+    }
+    50% {
+        filter:
+            drop-shadow(0 0 25px var(--glow-color-inner))
+            drop-shadow(0 0 45px var(--glow-color-mid))
+            drop-shadow(0 0 70px var(--glow-color-outer));
+    }
+}
+
+@keyframes sunBreath {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+@keyframes rayPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.7;
+        filter: drop-shadow(0 0 8px rgba(255, 200, 0, 0.4));
+    }
+    50% {
+        transform: scale(1.15);
+        opacity: 1;
+        filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.8));
+    }
+}
+
+/* Staggered ray pulse for each position */
+@keyframes rayPulseTop {
+    0%, 100% {
+        transform: translateX(-50%) scale(1) translateY(0);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateX(-50%) scale(1.12) translateY(-5px);
+        opacity: 1;
+    }
+}
+
+@keyframes rayPulseRight {
+    0%, 100% {
+        transform: translateY(-50%) scale(1) translateX(0);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-50%) scale(1.12) translateX(5px);
+        opacity: 1;
+    }
+}
+
+@keyframes rayPulseBottom {
+    0%, 100% {
+        transform: translateX(-50%) scale(1) translateY(0);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateX(-50%) scale(1.12) translateY(5px);
+        opacity: 1;
+    }
+}
+
+@keyframes rayPulseLeft {
+    0%, 100% {
+        transform: translateY(-50%) scale(1) translateX(0);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-50%) scale(1.12) translateX(-5px);
+        opacity: 1;
+    }
+}
+
+/* ===================== */
 /* DESKTOP: Sun Navigation */
 /* ===================== */
 .sun-nav-desktop {
     position: absolute;
-    top: 58%;
+    top: 62%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
@@ -81,20 +172,52 @@ html, body {
 .sun-image {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.4));
-    animation: spin 60s linear infinite;
+    animation:
+        sunGlow 4s ease-in-out infinite,
+        sunBreath 6s ease-in-out infinite;
 }
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
+/* Lava Lamp Sun Styles */
+.lava-sun {
+    animation: none; /* JavaScript handles animation */
+    filter:
+        drop-shadow(0 0 20px rgba(255, 230, 100, 0.6))
+        drop-shadow(0 0 40px rgba(255, 180, 50, 0.4))
+        drop-shadow(0 0 60px rgba(255, 140, 0, 0.2));
+}
+
+.lava-sun .sun-core {
+    transition: transform 0.3s ease-out;
+}
+
+.lava-sun .lava-ray {
+    transition: opacity 0.2s ease-out;
+}
+
+.lava-sun .sun-glow-inner {
+    transition: opacity 0.3s ease-out, r 0.3s ease-out;
+}
+
+.lava-sun .sun-glow-outer {
+    transition: stroke-width 0.4s ease-out;
+}
+
+.lava-sun .sun-highlight {
+    animation: highlightShimmer 3s ease-in-out infinite;
+}
+
+@keyframes highlightShimmer {
+    0%, 100% {
+        opacity: 0.3;
+        transform: translate(0, 0);
     }
-    to {
-        transform: rotate(360deg);
+    50% {
+        opacity: 0.5;
+        transform: translate(2px, -2px);
     }
 }
 
-/* Ray hotspots - positioned at the 4 cardinal positions (12, 3, 6, 9 o'clock) */
+/* Ray hotspots - positioned at the 4 cardinal positions */
 .ray-hotspot {
     position: absolute;
     width: 50px;
@@ -109,20 +232,42 @@ html, body {
     z-index: 100;
 }
 
-/* Mini sun styling */
+/* Mini sun styling with pulsing animation */
 .mini-sun {
     width: 100%;
     height: 100%;
     opacity: 0.7;
     transition: all 0.3s ease;
-    filter: drop-shadow(0 0 5px rgba(255, 200, 0, 0.3));
+    filter: drop-shadow(0 0 8px rgba(255, 200, 0, 0.4));
+}
+
+/* Staggered pulse animations for each ray direction */
+.ray-top .mini-sun {
+    animation: rayPulse 3s ease-in-out infinite;
+    animation-delay: 0s;
+}
+
+.ray-right .mini-sun {
+    animation: rayPulse 3s ease-in-out infinite;
+    animation-delay: 0.75s;
+}
+
+.ray-bottom .mini-sun {
+    animation: rayPulse 3s ease-in-out infinite;
+    animation-delay: 1.5s;
+}
+
+.ray-left .mini-sun {
+    animation: rayPulse 3s ease-in-out infinite;
+    animation-delay: 2.25s;
 }
 
 .ray-hotspot:hover .mini-sun {
     opacity: 1;
-    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8))
-            drop-shadow(0 0 30px rgba(255, 215, 0, 0.5));
-    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9))
+            drop-shadow(0 0 40px rgba(255, 215, 0, 0.6));
+    transform: scale(1.2);
+    animation-play-state: paused;
 }
 
 .ray-hotspot:hover .ray-label {
@@ -148,7 +293,7 @@ html, body {
     border: 1px solid rgba(255, 215, 0, 0.4);
 }
 
-/* Position hotspots at 12, 3, 6, 9 o'clock - further from sun */
+/* Position hotspots at 12, 3, 6, 9 o'clock */
 .ray-top {
     top: -45px;
     left: 50%;
@@ -225,35 +370,79 @@ html, body {
     z-index: 5;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 .mobile-sun-wrapper {
-    width: 180px;
-    height: 180px;
+    width: 140px;
+    height: 140px;
+    position: relative;
 }
 
 .mobile-sun-image {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.4));
-    animation: spin 60s linear infinite;
+    animation:
+        sunGlow 4s ease-in-out infinite,
+        sunBreath 6s ease-in-out infinite;
+}
+
+/* Mobile Lava Lamp Sun Styles */
+.lava-sun-mobile {
+    animation: none;
+    filter:
+        drop-shadow(0 0 15px rgba(255, 230, 100, 0.6))
+        drop-shadow(0 0 30px rgba(255, 180, 50, 0.4))
+        drop-shadow(0 0 45px rgba(255, 140, 0, 0.2));
+}
+
+.lava-sun-mobile .sun-core-mobile {
+    transition: transform 0.3s ease-out;
+}
+
+.lava-sun-mobile .lava-ray-mobile {
+    transition: opacity 0.2s ease-out;
+}
+
+.lava-sun-mobile .sun-glow-inner-mobile {
+    transition: opacity 0.3s ease-out, r 0.3s ease-out;
+}
+
+.lava-sun-mobile .sun-highlight-mobile {
+    animation: highlightShimmer 3s ease-in-out infinite;
 }
 
 .mobile-callouts {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
+}
+
+/* Mobile callout pulse animation */
+@keyframes calloutPulse {
+    0%, 100% {
+        box-shadow:
+            0 0 10px rgba(255, 200, 0, 0.3),
+            0 0 20px rgba(255, 200, 0, 0.1);
+    }
+    50% {
+        box-shadow:
+            0 0 18px rgba(255, 200, 0, 0.5),
+            0 0 35px rgba(255, 200, 0, 0.2);
+    }
 }
 
 .callout {
-    width: 70px;
-    height: 70px;
+    width: 68px;
+    height: 68px;
     padding: 8px;
-    background: rgba(252, 209, 22, 0.5);
+    background: radial-gradient(circle at 30% 30%,
+        rgba(255, 230, 100, 0.7) 0%,
+        rgba(252, 209, 22, 0.5) 50%,
+        rgba(230, 180, 20, 0.4) 100%);
     color: var(--dark);
     font-weight: 700;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     letter-spacing: 0.3px;
     border-radius: 50%;
     text-decoration: none;
@@ -264,15 +453,27 @@ html, body {
     align-items: center;
     justify-content: center;
     flex: none;
-    box-shadow: 0 0 15px rgba(255, 200, 0, 0.3);
+    animation: calloutPulse 3s ease-in-out infinite;
 }
+
+/* Stagger the callout animations */
+.callout:nth-child(1) { animation-delay: 0s; }
+.callout:nth-child(2) { animation-delay: 0.5s; }
+.mobile-callouts:last-child .callout:nth-child(1) { animation-delay: 1s; }
+.mobile-callouts:last-child .callout:nth-child(2) { animation-delay: 1.5s; }
 
 .callout:hover,
 .callout:active {
-    background: rgba(252, 209, 22, 0.75);
+    background: radial-gradient(circle at 30% 30%,
+        rgba(255, 240, 120, 0.9) 0%,
+        rgba(252, 209, 22, 0.7) 50%,
+        rgba(230, 180, 20, 0.6) 100%);
     border-color: var(--colombia-yellow);
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
-    transform: scale(1.05);
+    box-shadow:
+        0 0 25px rgba(255, 215, 0, 0.6),
+        0 0 50px rgba(255, 200, 0, 0.3);
+    transform: scale(1.08);
+    animation-play-state: paused;
 }
 
 /* Legacy mobile nav - keeping for compatibility */
@@ -343,23 +544,24 @@ html, body {
 /* ===================== */
 /* Responsive Design */
 /* ===================== */
+
+/* Tablet and Mobile Portrait */
 @media (max-width: 768px) {
-    /* Hide desktop sun, show mobile sun with callouts */
     .sun-nav-desktop {
-        display: none;
+        display: none !important;
     }
 
     .mobile-sun-nav {
-        display: flex;
-        margin-top: 50px;
+        display: flex !important;
+        margin-top: 30px;
     }
 
     .header {
-        top: 20px;
+        top: 10px;
     }
 
     .logo {
-        max-width: 200px;
+        max-width: 140px;
     }
 
     .footer {
@@ -368,39 +570,274 @@ html, body {
     }
 }
 
-@media (max-width: 480px) {
+/* Short viewport heights - prevent logo/nav overlap */
+@media (max-height: 700px) and (max-width: 768px) {
     .header {
-        top: 15px;
+        top: 5px;
     }
 
     .logo {
-        max-width: 170px;
+        max-width: 100px;
     }
 
     .mobile-sun-nav {
-        margin-top: 40px;
-        gap: 12px;
+        margin-top: 15px;
+        gap: 8px;
     }
 
     .mobile-sun-wrapper {
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .callout {
+        width: 55px;
+        height: 55px;
+        font-size: 0.5rem;
+    }
+}
+
+/* Very short viewport heights */
+@media (max-height: 600px) and (max-width: 768px) {
+    .logo {
+        max-width: 80px;
+    }
+
+    .mobile-sun-nav {
+        margin-top: 10px;
+        gap: 6px;
+    }
+
+    .mobile-sun-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+
+    .callout {
+        width: 48px;
+        height: 48px;
+        font-size: 0.45rem;
+        padding: 4px;
     }
 
     .mobile-callouts {
-        gap: 20px;
+        gap: 10px;
+    }
+}
+
+/* Square-ish aspect ratios (tablets) - prevent overlap */
+@media (max-width: 768px) and (min-aspect-ratio: 3/4) {
+    .logo {
+        max-width: 110px;
+    }
+
+    .mobile-sun-nav {
+        top: 55%;
+        margin-top: 0;
     }
 
     .callout {
         width: 60px;
         height: 60px;
+        font-size: 0.55rem;
+    }
+}
+
+/* Standard iPhone (390px width) and similar */
+@media (max-width: 480px) {
+    .header {
+        top: 12px;
+    }
+
+    .logo {
+        max-width: 150px;
+    }
+
+    .mobile-sun-nav {
+        margin-top: 25px;
+        gap: 10px;
+    }
+
+    .mobile-sun-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+
+    .mobile-callouts {
+        gap: 16px;
+    }
+
+    .callout {
+        width: 62px;
+        height: 62px;
         padding: 6px;
         font-size: 0.55rem;
+        line-height: 1.2;
     }
 
     .footer {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
         bottom: 8px;
+    }
+}
+
+/* Small phones (iPhone SE, etc.) */
+@media (max-width: 375px) {
+    .logo {
+        max-width: 130px;
+    }
+
+    .mobile-sun-nav {
+        gap: 8px;
+    }
+
+    .mobile-sun-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+
+    .callout {
+        width: 56px;
+        height: 56px;
+        font-size: 0.5rem;
+    }
+
+    .mobile-callouts {
+        gap: 12px;
+    }
+}
+
+/* ===================== */
+/* LANDSCAPE MODE - Mobile */
+/* ===================== */
+@media (max-width: 896px) and (orientation: landscape) {
+    /* IMPORTANT: Hide desktop sun in landscape mode */
+    .sun-nav-desktop {
+        display: none !important;
+    }
+
+    .landing-container {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .header {
+        position: relative;
+        top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .logo {
+        max-width: 120px;
+    }
+
+    /* Horizontal layout for landscape - generous sizing */
+    .mobile-sun-nav {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 15px auto;
+        gap: 30px;
+        padding: 0 30px;
+    }
+
+    .mobile-callouts {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .mobile-sun-wrapper {
+        width: 130px;
+        height: 130px;
+        flex-shrink: 0;
+    }
+
+    .callout {
+        width: 75px;
+        height: 75px;
+        font-size: 0.6rem;
+    }
+
+    .footer {
+        position: relative;
+        bottom: auto;
+        margin-top: 15px;
+        padding-bottom: 10px;
+    }
+}
+
+/* Short landscape (phones) */
+@media (max-height: 500px) and (orientation: landscape) {
+    .logo {
+        max-width: 100px;
+    }
+
+    .mobile-sun-nav {
+        gap: 20px;
+        margin: 10px auto;
+    }
+
+    .mobile-sun-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+
+    .callout {
+        width: 60px;
+        height: 60px;
+        font-size: 0.5rem;
+    }
+
+    .mobile-callouts {
+        gap: 10px;
+    }
+}
+
+/* Very short landscape (notch phones) */
+@media (max-height: 380px) and (orientation: landscape) {
+    /* IMPORTANT: Hide desktop sun in short landscape */
+    .sun-nav-desktop {
+        display: none !important;
+    }
+
+    .header {
+        top: 5px;
+    }
+
+    .logo {
+        max-width: 70px;
+    }
+
+    .mobile-sun-nav {
+        display: flex !important;
+        gap: 12px;
+        margin: 5px auto;
+    }
+
+    .mobile-sun-wrapper {
+        width: 65px;
+        height: 65px;
+    }
+
+    .callout {
+        width: 48px;
+        height: 48px;
+        font-size: 0.45rem;
+        padding: 4px;
+    }
+
+    .mobile-callouts {
+        gap: 6px;
+    }
+
+    .footer {
+        font-size: 0.5rem;
+        margin-top: 5px;
     }
 }
 
@@ -416,7 +853,7 @@ html, body {
     }
 
     .sun-nav-desktop {
-        top: 55%;
+        top: 60%;
     }
 }
 
@@ -520,4 +957,24 @@ html, body {
 /* Adjust page container for fixed nav */
 .page-container {
     padding-top: 80px;
+}
+
+/* ===================== */
+/* Reduced Motion Preference */
+/* ===================== */
+@media (prefers-reduced-motion: reduce) {
+    .sun-image,
+    .mobile-sun-image {
+        animation: none;
+        filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.5));
+    }
+
+    .mini-sun {
+        animation: none;
+    }
+
+    .callout {
+        animation: none;
+        box-shadow: 0 0 15px rgba(255, 200, 0, 0.3);
+    }
 }

@@ -23,28 +23,79 @@
         </a>
     </header>
 
-    <!-- Main Content - Sun with Contact Info -->
+    <!-- Main Content - Side by Side Layout -->
     <main class="contact-main">
+        <!-- Lava Lamp Sun -->
         <div class="sun-container">
-            <!-- Sun from main page -->
-            <img src="../assets/images/sun_vector.svg" alt="Sun" class="contact-sun">
+            <svg class="contact-sun lava-sun-contact" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="sunCoreGradientContact" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#FFF7B0"/>
+                        <stop offset="40%" stop-color="#FFE14D"/>
+                        <stop offset="70%" stop-color="#FFC700"/>
+                        <stop offset="100%" stop-color="#FFA500"/>
+                    </radialGradient>
+                    <filter id="sunGlowFilterContact" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="8" result="blur"/>
+                        <feMerge>
+                            <feMergeNode in="blur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                    <linearGradient id="rayGradYellowContact" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#FFD700" stop-opacity="1"/>
+                        <stop offset="100%" stop-color="#FFA500" stop-opacity="0.6"/>
+                    </linearGradient>
+                    <linearGradient id="rayGradBlueContact" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#5588CC" stop-opacity="1"/>
+                        <stop offset="100%" stop-color="#003893" stop-opacity="0.6"/>
+                    </linearGradient>
+                    <linearGradient id="rayGradRedContact" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#DD4444" stop-opacity="1"/>
+                        <stop offset="100%" stop-color="#CE1126" stop-opacity="0.6"/>
+                    </linearGradient>
+                </defs>
+                <circle class="sun-glow-outer" cx="200" cy="200" r="180" fill="none"
+                        stroke="rgba(255, 200, 0, 0.1)" stroke-width="40"/>
+                <g class="lava-rays-contact" filter="url(#sunGlowFilterContact)">
+                    <path class="lava-ray-contact ray-c-0" d="M200,120 Q200,80 200,50 Q200,80 200,120" fill="url(#rayGradYellowContact)"/>
+                    <path class="lava-ray-contact ray-c-1" d="M255,135 Q285,100 310,75 Q280,105 250,140" fill="url(#rayGradYellowContact)"/>
+                    <path class="lava-ray-contact ray-c-2" d="M280,200 Q320,200 350,200 Q320,200 280,200" fill="url(#rayGradBlueContact)"/>
+                    <path class="lava-ray-contact ray-c-3" d="M255,265 Q285,300 310,325 Q280,295 250,260" fill="url(#rayGradBlueContact)"/>
+                    <path class="lava-ray-contact ray-c-4" d="M200,280 Q200,320 200,350 Q200,320 200,280" fill="url(#rayGradRedContact)"/>
+                    <path class="lava-ray-contact ray-c-5" d="M145,265 Q115,300 90,325 Q120,295 150,260" fill="url(#rayGradRedContact)"/>
+                    <path class="lava-ray-contact ray-c-6" d="M120,200 Q80,200 50,200 Q80,200 120,200" fill="url(#rayGradYellowContact)"/>
+                    <path class="lava-ray-contact ray-c-7" d="M145,135 Q115,100 90,75 Q120,105 150,140" fill="url(#rayGradYellowContact)"/>
+                    <path class="lava-ray-contact ray-c-8" d="M225,125 Q240,90 260,60 Q235,95 220,130" fill="url(#rayGradBlueContact)"/>
+                    <path class="lava-ray-contact ray-c-9" d="M275,175 Q310,160 340,145 Q305,165 270,180" fill="url(#rayGradRedContact)"/>
+                    <path class="lava-ray-contact ray-c-10" d="M275,225 Q310,240 340,255 Q305,235 270,220" fill="url(#rayGradYellowContact)"/>
+                    <path class="lava-ray-contact ray-c-11" d="M225,275 Q240,310 260,340 Q235,305 220,270" fill="url(#rayGradBlueContact)"/>
+                </g>
+                <circle class="sun-glow-inner-contact" cx="200" cy="200" r="95" fill="rgba(255, 240, 150, 0.3)"/>
+                <circle class="sun-core-contact" cx="200" cy="200" r="80" fill="url(#sunCoreGradientContact)"/>
+                <ellipse class="sun-highlight-contact" cx="175" cy="175" rx="25" ry="20" fill="rgba(255, 255, 255, 0.3)"/>
+            </svg>
+        </div>
 
-            <!-- Contact Links inside sun -->
-            <div class="contact-links">
-                <h1 class="contact-title">¡Contact Us!</h1>
-                <div class="contact-icons">
-                    <a href="mailto:temporary@solysalud.com" class="contact-icon" title="Email Us">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                        </svg>
-                    </a>
-                    <a href="tel:+0000000000" class="contact-icon" title="Call Us">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                        </svg>
-                    </a>
-                </div>
+        <!-- Contact Content Box -->
+        <div class="contact-container">
+            <h1 class="contact-title">¡Contact Us!</h1>
+            <p class="contact-text">
+                We'd love to hear from you! Reach out to learn more about <strong>Sol Y Salud</strong> and how you can support our mission.
+            </p>
+            <div class="contact-icons">
+                <a href="mailto:temporary@solysalud.com" class="contact-icon" title="Email Us">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+                <a href="tel:+0000000000" class="contact-icon" title="Call Us">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                </a>
             </div>
+            <a href="../index.html" class="back-home-btn">← Back to Home</a>
         </div>
     </main>
 
@@ -52,5 +103,7 @@
     <footer class="contact-footer">
         <p>&copy; 2025 Sol Y Salud. All rights reserved.</p>
     </footer>
+
+    <script src="../js/main.js"></script>
 </body>
 </html>
